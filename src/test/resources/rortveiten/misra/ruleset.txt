@@ -1,0 +1,7 @@
+Directive 1.1
+Rule 2.2
+NotactuallyaRule
+
+SomeOtherClass 2.3
+
+ DirectiveButStartsWithSpace 2.2 

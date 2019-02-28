@@ -1,0 +1,48 @@
+#info {
+	width: 640px;
+	padding-bottom: 30px;
+}
+#bottomtext {
+	width: 640px;					
+	padding-top: 10px;
+}
+#compliance-matrix {
+	width: 640px;
+	text-align: left;
+	border-collapse: collapse;
+	border-top: 3px solid;
+	border-bottom: 3px solid;
+}
+#compliance-matrix tr:nth-child(even) {
+	background: #EEE;
+}
+#compliance-matrix th {
+	padding: 8px;	
+	border-right: 1px solid;
+	border-left: 1px solid;					
+	border-bottom: 1px solid;
+}
+#compliance-matrix td {
+	padding: 8px;
+	border-right: 1px solid;
+	border-left: 1px solid;
+	border-bottom: 1px solid;
+}			
+.violation {
+	background: #FDD;
+}
+#compliant {
+	color: #3A3;
+}
+#noncompliant {
+	color: #A33;
+}
+.attribute {
+	/*font-style: italic;*/
+}
+#summary {
+	/*font-style: italic;*/
+}
+.value {
+	font-weight: bold;
+}

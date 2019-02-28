@@ -1,0 +1,91 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:l="/lib/layout" xmlns:d="jelly:define" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:x="jelly:xml" xmlns:html="jelly:html" xmlns:util="jelly:util">	
+	<l:layout>
+		<l:header>
+			<link rel="stylesheet" type="text/css" href="${resURL}/plugin/misra_gcs/css/gcs.css"/>		
+			<script src="${resURL}/plugin/misra_gcs/js/gcs.js"/>
+		</l:header>
+		<j:if test="${!it.projectAction}">
+			<st:include it="${it.run}" from="${it.run}"  page="sidepanel.jelly"/>
+		</j:if>
+		<j:if test="${it.projectAction}">
+			<st:include it="${it.job}" page="sidepanel.jelly"/>
+		</j:if>
+		<l:main-panel>
+			<j:set var="complianceId" value="noncompliant"/>
+			<j:if test="${it.compliant}">
+				<j:set var="complianceId" value="compliant"/>
+			</j:if>			
+			<div id="report">
+				<div id="heading">
+					<img src="${resURL + it.iconFileName}" alt="Misra logo"/>
+					<h1>MISRA Guideline Compliance Summary</h1>
+				</div>
+				<div id="info">
+					<span class="attribute">Project:</span><j:whitespace trim="false"> </j:whitespace><span class="value">${it.projectName}</span><br/>
+					<span class="attribute">Software version:</span><j:whitespace trim="false"> </j:whitespace><span class="value">${it.softwareVersion}</span><br/>
+					<span class="attribute">Guidelines:</span><j:whitespace trim="false"> </j:whitespace><span class="value">${it.misraVersion}</span><br/>
+					<span class="attribute">Checking tool:</span><j:whitespace trim="false"> </j:whitespace><span class="value">${it.tool}</span><br/>
+					<span class="attribute">Result:</span><j:whitespace trim="false"> </j:whitespace><span class="value" id="${complianceId}">${it.compliant?"Compliant":"Not compliant"}</span><br/>
+					<span class="attribute">Summary:</span><j:whitespace trim="false"> </j:whitespace><span id="summary">${it.summary}</span><br/>
+					<j:if test="${!it.notes.isEmpty()}">
+						<span class="attribute">Notes:</span> ${it.notes}
+					</j:if>
+				</div>
+				<table id="compliance-matrix">
+					<thead>
+						<tr>
+							<th scope="col">Guideline</th>
+							<th scope="col">Category</th>
+							<th scope="col">Recategorization</th>
+							<th scope="col">Status</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<j:forEach var="guideline" items="${it.guidelines}">
+							<tr>
+								<td>${guideline.id}</td>
+								<td>${guideline.categoryString}</td>
+								<td>${guideline.reCategorizationString}</td>
+
+								<j:set var="complianceClass" value="notviolation"/>
+								<j:if test="${guideline.status.toString().equals('VIOLATIONS')}">
+									<j:set var="complianceClass" value="violation"/>
+								</j:if>
+								<td class="${complianceClass}">
+									${guideline.status}
+									<j:if test="${guideline.status.toString().equals('DEVIATIONS')}">
+										<ul>
+											<j:forEach var="ref" items="${guideline.deviationReferences}">
+												<li>Deviation reference: <a href="${ref.link}">${ref.reference}</a></li>
+											</j:forEach>
+										</ul>
+									</j:if>
+								</td>
+							</tr>
+						</j:forEach>
+					</tbody>
+				</table>
+				<div id="bottomtext">
+					<p>			
+						Deviations are violations that are documented and approved after a risk assessment. Deviations are allowed for
+						advisory and required guidelines.
+						Violations of advisory guidelines are allowed without formal deviations as long as a process including documentation of each violation has been followed. 
+						See <a href="https://www.misra.org.uk/LinkClick.aspx?fileticket=w_Syhpkf7xA%3d&amp;tabid=57">MISRA Compliance:2016</a> for details.
+					</p>
+					<p>
+						Guidelines may be re-categorized on a project basis. The legal recategorizations are: 
+						<ul>
+							<li>Required -&gt; Mandatory</li>
+							<li>Advisory -&gt; Mandatory</li>
+							<li>Advisory -&gt; Required</li>
+							<li>Advisory -&gt; Disapplied</li>
+						</ul>
+					</p>		
+				</div>
+			</div>		
+			<button onclick="copyElement('report')">Copy report to clipboard</button> The copied content can be pasted into a word processor.
+		</l:main-panel>
+	</l:layout>
+</j:jelly>

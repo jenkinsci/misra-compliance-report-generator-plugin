@@ -1,0 +1,33 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+    <f:entry title="Warning parser" field ="warningParser">
+    	<f:select />
+    </f:entry>
+    <f:entry title="MISRA version" field ="ruleSet">
+    	<f:select />
+    </f:entry>
+    <f:entry title="Project name" field="projectName">
+    	<f:textbox />
+    </f:entry>
+    <f:entry title="Software version" field="softwareVersion">
+    	<f:textbox />
+    </f:entry>
+    <f:entry title="Warnings file" field="warningsFile">
+        <f:textbox />
+    </f:entry>
+    <f:entry title="File with list of source files" field="sourceListFile">
+        <f:textbox />
+    </f:entry>
+    <f:entry title="GRP file (optional)" field="grpFile">
+        <f:textbox />
+    </f:entry>
+    <f:entry title="Log file (optional)" field="logFile">
+        <f:textbox />
+    </f:entry>
+    <f:entry title="Fail build on error" field ="doFailOnError">
+    	<f:checkbox />
+    </f:entry>
+    <f:entry title="Fail build on incompliance" field ="doFailOnIncompliance">
+    	<f:checkbox />
+    </f:entry>
+</j:jelly>
