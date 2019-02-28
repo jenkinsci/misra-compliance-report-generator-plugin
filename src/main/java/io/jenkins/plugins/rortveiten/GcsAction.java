@@ -37,7 +37,7 @@ public class GcsAction implements Action, LastBuildAction {
     
 	@Override
 	public String getIconFileName() {
-		return "/plugin/misra_gcs/img/MISRA-1.png";
+		return "/plugin/misra-compliance-report-generator/img/MISRA-1.png";
 	}
 
 	@Override
