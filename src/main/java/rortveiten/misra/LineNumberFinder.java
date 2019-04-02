@@ -57,6 +57,8 @@ public class LineNumberFinder {
     }
     
     /** Returns the regex matcher so you can examine the previous match
+     * 
+     * @return the regex matcher used to find the previous text
      */
     public Matcher getMatcher() {
         return matcher;

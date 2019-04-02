@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 public class WarningParserTest {
 
@@ -956,5 +957,21 @@ public class WarningParserTest {
         assertEquals("file6.c:1: error: Violation of Jau 1.1 (Mandatory)", report.get(6));
         assertEquals("file7.c:2: error: Violation of Rule 2.2 (Required)", report.get(7));
         
+    }
+    
+    
+    @Test
+    public void testSupportedMisraVersions() {
+        Set<MisraVersion> versions = getWarningParserSpy(null).supportedMisraVersions();
+        //Check that it contains every value it possibly 
+        assertEquals(MisraVersion.values().length, versions.size());
+    }
+    
+    @Test
+    public void testMisraVersionFromString() {
+        assertEquals(MisraVersion.C_1998, MisraVersion.fromString("MISRA C: 1998"));
+        assertEquals(MisraVersion.C_2004, MisraVersion.fromString("MISRA 2004"));
+        assertEquals(MisraVersion.C_2012, MisraVersion.fromString("MISRA C: 2012"));
+        assertEquals(MisraVersion.CPP_2008, MisraVersion.fromString("MISRA C++"));
     }
 }
