@@ -1,9 +1,5 @@
 package rortveiten.misra;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -99,5 +95,15 @@ public class PcLintWarningParser extends WarningParser {
 	public String name() {
 		return "PC-Lint";
 	}
+    
+    @Override
+    public Set<MisraVersion> supportedMisraVersions() {
+        Set<MisraVersion> versions = new HashSet<MisraVersion>();
+        versions.add(MisraVersion.C_1998);
+        versions.add(MisraVersion.C_2004);
+        versions.add(MisraVersion.C_2012);
+        versions.add(MisraVersion.CPP_2008);
+        return versions;
+     }
 
 }

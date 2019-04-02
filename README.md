@@ -11,13 +11,14 @@ An important key to usage of this plugin is the tags which can be added to suppr
 
 ### Supported tools
 
-* PC-lint
+* [PC-lint](#PC-lint)
+* [Cppcheck](#Cppcheck)
 
-At the moment, this is the only supported MISRA checking tool. However, [adding support for new tools is easy](#newtools).
+At the moment, these are the only supported MISRA checking tools. However, [adding support for new tools is easy](#newtools).
 
 ### Supported MISRA guidelines
 
-The three MISRA C guideline versions 1998, 2004 and 2012 as well as the C++ guidelines from 2008 are supported.
+The three MISRA C guideline versions 1998, 2004 and 2012 as well as the C++ guidelines from 2008 are supported. Some tools may not support all versions. 
 
 ### Suppression comments
 
@@ -56,7 +57,7 @@ A suppression comment may suppress warnings for some guidelines  that are actual
 
 Examples:
 
-`/*lint !e455 FALSE POSITIVE - not actually in breach of any guideline */`
+`/* cppcheck-suppress misra-c2012-5.1; FALSE POSITIVE not actually in breach of the guideline */`
 
 `/*lint -esym(n, 944) PC-lint gives warnings for directive 1.1, rule 2.3 and rule 5.4, but actually only 5.4 is violated. FALSE POSITIVE(Directive 1.1) FALSE POSITIVE(Rule 2.3) */`
 
@@ -78,7 +79,7 @@ Examples:
 
 `/*lint -e543 We break the rules, but mgmnt says it's ok. DEVIATION(D22) */`
 
-`/*lint -e45342 This time we have a link too. DEVIATION(D23,  https:tinyurl.com/2fcpre6) */`
+`/* cppcheck-suppress misra-c2012-7.11 This time we have a link too. DEVIATION(D23,  https:tinyurl.com/2fcpre6) */`
 
 `/*lint -e32 This comment suppresses more than one violation, but there is a deviation only for one of them, so we need to mark it with the rule number. DEVIATION(D24,  https:tinyurl.com/2fcpre6, Rule 5.1) FALSEPOSITIVE(Rule 1.1) */`
 
@@ -107,7 +108,7 @@ Rule 5.1, Disapplied
 
 One of the inputs to the plugin is a list of all source files to be scanned. The list is itself a text file where each line contains the path to a file, relative to the workspace root. The list should contain header files as well as source files. A natural approach is to generate this file using for example a shell script step before the GCS plugin runs.
 
-Result
+### Result
 
 The end result is either compliant or not compliant - the project is compliant as long as there are no violations of required or mandatory rules (or rules that have been re-categorized as required or mandatory). The report will be created even if the code is deemed not compliant. You can elect to have Jenkins mark the build as failed if the code is not compliant.
 
@@ -125,6 +126,15 @@ PC-lint should be set to produce output of the same format used for the warnings
 -hf1 // message height one
 -"format=%f(%l): %t %n: %m"
 ```
+##### Cppcheck
+Cppcheck comes with [a python add-on specifically to check MISRA guidelines](https://github.com/danmar/cppcheck/blob/master/addons/misra.py). At the time of writing, only the C 2012 version of the guidelines is supported. Since suppressions in a separate file are not yet supported, you will need to use [inline suppressions](http://cppcheck.sourceforge.net/manual.html#idm479), so run cppcheck with the option `--inline-suppr` . Suppressions for the python add-on are  in the format 
+
+```
+/* cppcheck-suppress misra-c2012-4.1 ; your tags here e.g. DEVIATION(D3) */
+```
+
+Here 4.1 is the rule number to suppress. Note the semicolon between the rule identifier and your tags. You do not need a ["MISRA Text file"](http://cppcheck.sourceforge.net/manual.html#idm429) to use with cppcheck for this plugin to work, although it helps to clarify the warnings from the cppcheck addon.
+
 
 ### Log of suppressions
 
@@ -213,7 +223,7 @@ public abstract String name();
 
 
 
-Please see `PcLintWarningParser.java` for a reference implementation.
+Please see `CppcheckWarningParser.java` and`PcLintWarningParser.java` for reference implementations.
 
 To build the plugin, you need Maven (make sure maven can access the internet through your proxy). In the plugin's root folder, use `mvn install` to build the plugin. You can also debug using `mvn hpi:debug`. See the [jenkins plugin tutorial](https://wiki.jenkins.io/display/JENKINS/Plugin+tutorial) for more on building and testing plugins.
 

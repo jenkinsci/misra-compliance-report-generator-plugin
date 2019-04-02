@@ -136,5 +136,15 @@ public class PcLintWarningParserTest {
         
         assertEquals(1, reqIds.size());      	    
 	}
+	
+    @Test
+    public void testSupportedMisraVersions()
+    {
+        Set<MisraVersion> versions = new PcLintWarningParser().supportedMisraVersions();
+        assertTrue(versions.contains(MisraVersion.C_1998));
+        assertTrue(versions.contains(MisraVersion.C_2004));
+        assertTrue(versions.contains(MisraVersion.C_2012));
+        assertTrue(versions.contains(MisraVersion.CPP_2008));
+    }
 }
 
