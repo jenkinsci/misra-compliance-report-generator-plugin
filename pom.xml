@@ -17,6 +17,7 @@
     </properties>
     <name>MISRA Compliance Report Plugin</name>
     <description>Creates MISRA Guideline Compliance Summary (GCS) tables for your builds</description>
+    <url>https://wiki.jenkins.io/display/JENKINS/MISRA+Compliance+Report+Plugin</url>
     <licenses>
         <license>
             <name>MIT License</name>

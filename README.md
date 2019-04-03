@@ -9,6 +9,8 @@ The plugin works by
 
 An important key to usage of this plugin is the tags which can be added to suppression comments. Adding and reviewing these tags should be part of your development process.
 
+See also this [plugin's page in the Jenkins wiki](https://wiki.jenkins.io/display/JENKINS/MISRA+Compliance+Report+Plugin).
+
 ### Supported tools
 
 * [PC-lint](#PC-lint)
