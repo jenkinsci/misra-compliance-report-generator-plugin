@@ -11,6 +11,10 @@ An important key to usage of this plugin is the tags which can be added to suppr
 
 See also this [plugin's page in the Jenkins wiki](https://wiki.jenkins.io/display/JENKINS/MISRA+Compliance+Report+Plugin).
 
+###### Note
+
+This software is not made by, endorsed by, or in any other way affiliated with the [Motor Industry Software Reliability Association (MISRA)](https://www.misra.org.uk). "MISRA" and "MISRA C" and the triangle logo are registered trademarks owned by HORIBA MIRA Ltd, held on behalf of the MISRA Consortium.
+
 ### Supported tools
 
 * [PC-lint](#PC-lint)
