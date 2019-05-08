@@ -79,7 +79,7 @@ public class PcLintWarningParser extends WarningParser {
 
 	@Override
 	protected Set<String> getGuidelineIdsFromComment(String comment) {
-		Matcher matcher = Pattern.compile("\\G[-!]e(?:sym\\(|func\\(|macro\\(|file\\(|template\\(|string\\(|call\\(|type\\()?(\\d+)(:?,[^\\)]*\\)\\s*|\\s*)").matcher(comment);
+		Matcher matcher = Pattern.compile("\\G[-!]e(?:\\(|\\{|sym\\(|func\\(|macro\\(|file\\(|template\\(|string\\(|call\\(|type\\()?(\\d+)(:?,[^\\)]*\\)\\s*|\\s*)").matcher(comment);
 		Set<String> ret = new HashSet<String>();
 		while (matcher.find()) {
 			Integer errNo = Integer.decode(matcher.group(1));
