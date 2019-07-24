@@ -118,9 +118,13 @@ public class PcLintWarningParserTest {
 	public void getGuidelineIdWithMultipleSuppressions() {
 		PcLintWarningParser parser = new PcLintWarningParser();
 		parser.setMisraVersion(MisraVersion.C_2012);
-		Set<String> reqIds = parser.getGuidelineIdsFromComment("-esym(16,rai) !e9015 -emacro(484,hei) -efunc(9024, jau) -efile(9029, hau) Hello -e4444444");//Last one is ignored because of the text inbetween
+		Set<String> reqIds = parser.getGuidelineIdsFromComment("-e(774) --e(9018) -e{9019} --e{9051} -esym(16,rai) !e9015 -emacro(484,hei) -efunc(9024, jau) -efile(9029, hau) Hello -e4444444");//Last one is ignored because of the text inbetween
 		
-		assertEquals(5, reqIds.size());
+		assertEquals(9, reqIds.size());
+		assertTrue(reqIds.contains("Rule 14.3"));
+		assertTrue(reqIds.contains("Rule 19.2"));
+		assertTrue(reqIds.contains("Rule 20.1"));
+		assertTrue(reqIds.contains("Rule 20.4"));
 		assertTrue(reqIds.contains("Rule 20.13"));
 		assertTrue(reqIds.contains("Rule 20.12"));
         assertTrue(reqIds.contains("Rule 20.10"));
