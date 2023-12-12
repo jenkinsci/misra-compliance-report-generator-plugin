@@ -48,7 +48,12 @@ public class GcsAction implements Action, LastBuildAction {
 
 	@Override
 	public String getUrlName() {
-		return URLEncoder.encode("MisraGcs" + projectName + softwareVersion, "UTF-8");
+		try {
+			return URLEncoder.encode("MisraGcs" + projectName + version, "UTF-8");
+		}
+		catch (UnsupportedEncodingException ex) {
+			return "MisraGcs";
+		}
 	}    
 	
 	public List<Guideline> getGuidelines() {
