@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.net.URLEncoder;
+import java.io.UnsupportedEncodingException;
 
 import hudson.model.Action;
 import rortveiten.misra.*;
