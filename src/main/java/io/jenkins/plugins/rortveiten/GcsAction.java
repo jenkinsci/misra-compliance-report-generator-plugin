@@ -3,6 +3,8 @@ package io.jenkins.plugins.rortveiten;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.net.URLEncoder;
+import java.io.UnsupportedEncodingException;
 
 import hudson.model.Action;
 import rortveiten.misra.*;
@@ -47,7 +49,12 @@ public class GcsAction implements Action, LastBuildAction {
 
 	@Override
 	public String getUrlName() {
-		return "MisraGcs";
+		try {
+			return URLEncoder.encode("MisraGcs" + projectName + softwareVersion, "UTF-8");
+		}
+		catch (UnsupportedEncodingException ex) {
+			return "MisraGcs";
+		}
 	}    
 	
 	public List<Guideline> getGuidelines() {
