@@ -47,7 +47,7 @@ public class GcsAction implements Action, LastBuildAction {
 
 	@Override
 	public String getUrlName() {
-		return "MisraGcs";
+		return "MisraGcs" + projectName + version;
 	}    
 	
 	public List<Guideline> getGuidelines() {
